@@ -640,7 +640,7 @@ let tcMatrix=[],tcSteps=[],tcCurStep=-1,tcAutoTimer=null;
 function inf(v){return v>=LARGE;}
 function fmtDist(v){return inf(v)?'inf':v;}
 
-/* FIX: buildPath_SSAD -- iterative with visited-set to prevent infinite loop */
+/* buildPath_SSAD: iterative with visited-set guard — prevents infinite loop on unreachable nodes */
 function buildPath_SSAD(src,v,from){
   if(v===src)return String(src);
   if(inf(dijD[v]))return null;
@@ -683,22 +683,27 @@ function switchSubTab(group,name){
   document.getElementById(p.panes+name).classList.add('active');
 }
 function generateGraph(){
-  const n=parseInt(document.getElementById('inp-n').value)||6;
-  const range=parseInt(document.getElementById('inp-range').value)||20;
-  const maxRange=parseInt(document.getElementById('inp-maxRange').value)||12;
-  const largeInt=parseInt(document.getElementById('inp-largeInt').value)||10000;
-  if(n<2||n>20){alert('n must be between 2 and 20');return;}
-  if(range<1){alert('range must be >= 1');return;}
-  N=n;LARGE=largeInt;G=[];
-  for(let i=0;i<n;i++){G[i]=[];for(let j=0;j<n;j++){if(i===j){G[i][j]=largeInt;}else{let v=Math.floor(Math.random()*range)+1;G[i][j]=v>maxRange?largeInt:v;}}}
-  renderOverview();
-  document.getElementById('algo-panel').style.display='';
-  document.getElementById('graph-info').style.display='';
-  switchTab('overview');
-  ['dijkstra','floyd','closure'].forEach(t=>{document.getElementById(t+'-placeholder').style.display='';document.getElementById(t+'-content').style.display='none';});
-  dijD=[];dijFrom=[];dijSteps=[];dijCurStep=-1;stopDijAuto();
-  fwA=[];fwPath=[];fwConn=[];fwSteps=[];fwCurStep=-1;stopFwAuto();
-  tcMatrix=[];tcSteps=[];tcCurStep=-1;stopTcAuto();
+  try{
+    const n=parseInt(document.getElementById('inp-n').value)||6;
+    const range=parseInt(document.getElementById('inp-range').value)||20;
+    const maxRange=parseInt(document.getElementById('inp-maxRange').value)||12;
+    const largeInt=parseInt(document.getElementById('inp-largeInt').value)||10000;
+    if(n<2||n>20){alert('n must be between 2 and 20');return;}
+    if(range<1){alert('range must be >= 1');return;}
+    N=n;LARGE=largeInt;G=[];
+    for(let i=0;i<n;i++){G[i]=[];for(let j=0;j<n;j++){if(i===j){G[i][j]=largeInt;}else{let v=Math.floor(Math.random()*range)+1;G[i][j]=v>maxRange?largeInt:v;}}}
+    renderOverview();
+    document.getElementById('algo-panel').style.display='';
+    document.getElementById('graph-info').style.display='';
+    switchTab('overview');
+    ['dijkstra','floyd','closure'].forEach(t=>{document.getElementById(t+'-placeholder').style.display='';document.getElementById(t+'-content').style.display='none';});
+    dijD=[];dijFrom=[];dijSteps=[];dijCurStep=-1;stopDijAuto();
+    fwA=[];fwPath=[];fwConn=[];fwSteps=[];fwCurStep=-1;stopFwAuto();
+    tcMatrix=[];tcSteps=[];tcCurStep=-1;stopTcAuto();
+  }catch(e){
+    console.error('generateGraph error:',e);
+    alert('Error generating graph: '+e.message);
+  }
 }
 function renderOverview(){
   document.getElementById('overview-placeholder').style.display='none';
@@ -764,16 +769,21 @@ function runDijkstra(){
   if(src<0||src>=N){alert('Invalid source vertex.');return;}
   const verbose=document.getElementById('toggle-verbose').checked;
   stopDijAuto();
-  const result=dijkstraAlgo(src,verbose);
-  dijD=result.D;dijFrom=result.from;dijSteps=result.steps;
-  dijCurStep=verbose?0:dijSteps.length-1;
-  document.getElementById('dijkstra-placeholder').style.display='none';
-  document.getElementById('dijkstra-content').style.display='';
-  document.getElementById('dij-src-badge').textContent='src = '+src;
-  srcInput.max=N-1;
-  renderDijResult(src);renderDijPaths(src);renderDijConn();
-  if(verbose){renderDijTrace();}else{document.getElementById('dij-trace-panel').innerHTML='<div class="trace-line header">Enable Step-by-step trace to see the trace.</div>';}
-  switchTab('dijkstra');
+  try{
+    const result=dijkstraAlgo(src,verbose);
+    dijD=result.D;dijFrom=result.from;dijSteps=result.steps;
+    dijCurStep=verbose?0:dijSteps.length-1;
+    document.getElementById('dijkstra-placeholder').style.display='none';
+    document.getElementById('dijkstra-content').style.display='';
+    document.getElementById('dij-src-badge').textContent='src = '+src;
+    srcInput.max=N-1;
+    renderDijResult(src);renderDijPaths(src);renderDijConn();
+    if(verbose){renderDijTrace();}else{document.getElementById('dij-trace-panel').innerHTML='<div class="trace-line header">Enable Step-by-step trace to see the trace.</div>';}
+    switchTab('dijkstra');
+  }catch(e){
+    console.error('Dijkstra error:',e);
+    alert('Error running Dijkstra: '+e.message);
+  }
 }
 function dijkstraAlgo(src,verbose){
   const D=new Array(N),from=new Array(N),found=new Array(N).fill(false);
@@ -850,15 +860,20 @@ function runFloyd(){
   if(!G){alert('Generate a graph first.');return;}
   const verbose=document.getElementById('toggle-verbose').checked;
   stopFwAuto();
-  const result=floydAlgo(verbose);
-  fwA=result.A;fwPath=result.path;fwConn=result.conn;fwSteps=result.steps;
-  fwCurStep=verbose?0:fwSteps.length-1;
-  document.getElementById('floyd-placeholder').style.display='none';
-  document.getElementById('floyd-content').style.display='';
-  renderDistMatrix('fw-dist-matrix-wrap',fwA);
-  renderFwPaths();renderFwConn();
-  if(verbose){renderFwTrace();}else{document.getElementById('fw-trace-panel').innerHTML='<div class="trace-line header">Enable Step-by-step trace to see the trace.</div>';}
-  switchTab('floyd');
+  try{
+    const result=floydAlgo(verbose);
+    fwA=result.A;fwPath=result.path;fwConn=result.conn;fwSteps=result.steps;
+    fwCurStep=verbose?0:fwSteps.length-1;
+    document.getElementById('floyd-placeholder').style.display='none';
+    document.getElementById('floyd-content').style.display='';
+    renderDistMatrix('fw-dist-matrix-wrap',fwA);
+    renderFwPaths();renderFwConn();
+    if(verbose){renderFwTrace();}else{document.getElementById('fw-trace-panel').innerHTML='<div class="trace-line header">Enable Step-by-step trace to see the trace.</div>';}
+    switchTab('floyd');
+  }catch(e){
+    console.error('Floyd error:',e);
+    alert('Error running Floyd-Warshall: '+e.message);
+  }
 }
 function floydAlgo(verbose){
   const A=[],path=[],conn=[];
@@ -916,16 +931,21 @@ function runTransClosure(){
   if(!G){alert('Generate a graph first.');return;}
   const verbose=document.getElementById('toggle-verbose').checked;
   stopTcAuto();
-  const result=tcAlgo(verbose);
-  tcMatrix=result.TC;tcSteps=result.steps;
-  tcCurStep=verbose?0:tcSteps.length-1;
-  document.getElementById('closure-placeholder').style.display='none';
-  document.getElementById('closure-content').style.display='';
-  renderBoolMatrix('tc-matrix-wrap',tcMatrix);
-  let cnt=0;for(let i=0;i<N;i++)for(let j=0;j<N;j++)if(i!==j&&tcMatrix[i][j])cnt++;
-  document.getElementById('tc-count-badge').textContent=cnt+' reachable pairs (i!=j)';
-  if(verbose){renderTcTrace();}else{document.getElementById('tc-trace-panel').innerHTML='<div class="trace-line header">Enable Step-by-step trace to see the trace.</div>';}
-  switchTab('closure');
+  try{
+    const result=tcAlgo(verbose);
+    tcMatrix=result.TC;tcSteps=result.steps;
+    tcCurStep=verbose?0:tcSteps.length-1;
+    document.getElementById('closure-placeholder').style.display='none';
+    document.getElementById('closure-content').style.display='';
+    renderBoolMatrix('tc-matrix-wrap',tcMatrix);
+    let cnt=0;for(let i=0;i<N;i++)for(let j=0;j<N;j++)if(i!==j&&tcMatrix[i][j])cnt++;
+    document.getElementById('tc-count-badge').textContent=cnt+' reachable pairs (i!=j)';
+    if(verbose){renderTcTrace();}else{document.getElementById('tc-trace-panel').innerHTML='<div class="trace-line header">Enable Step-by-step trace to see the trace.</div>';}
+    switchTab('closure');
+  }catch(e){
+    console.error('TransClosure error:',e);
+    alert('Error running Transitive Closure: '+e.message);
+  }
 }
 function tcAlgo(verbose){
   const TC=[];
@@ -964,7 +984,7 @@ function tcStepNext(){if(tcCurStep<tcSteps.length-1){tcCurStep++;renderTcTrace()
 function tcReset(){tcCurStep=0;renderTcTrace();}
 function stopTcAuto(){if(tcAutoTimer){clearInterval(tcAutoTimer);tcAutoTimer=null;const b=document.getElementById('tc-btn-auto');if(b)b.innerHTML='&#9654; Auto';}}
 function tcToggleAuto(){if(tcAutoTimer){stopTcAuto();return;}document.getElementById('tc-btn-auto').innerHTML='&#9646;&#9646; Pause';tcAutoTimer=setInterval(()=>{if(tcCurStep>=tcSteps.length-1){stopTcAuto();return;}tcCurStep++;renderTcTrace();},1100-parseInt(document.getElementById('tc-speed').value)*100);}
-window.addEventListener('DOMContentLoaded',()=>{generateGraph();});
+/* Page loads clean — user must click "Generate Graph" to start */
 </script>
 </body>
 </html>
