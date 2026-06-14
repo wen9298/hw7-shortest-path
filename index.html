@@ -26,7 +26,6 @@
   --color-success-bg: #eef5e8;
   --color-error: #c0392b;
   --color-error-bg: #fdf0ee;
-  --color-tab-active-bg: #e8f4f5;
   --font-body: 'Inter', 'Helvetica Neue', sans-serif;
   --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
   --radius-sm: 4px;
@@ -139,12 +138,7 @@ body {
   padding: 5px 10px;
 }
 .btn-ghost:hover { background: var(--color-divider); color: var(--color-text); }
-.toggle-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
+.toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .toggle-label { font-size: 12px; color: var(--color-text-muted); }
 .toggle-switch { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
@@ -191,25 +185,11 @@ body {
   white-space: nowrap;
 }
 .main-tab:hover { color: var(--color-text); }
-.main-tab.active {
-  color: var(--color-primary);
-  border-bottom-color: var(--color-primary);
-  font-weight: 600;
-}
-.tab-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px 20px;
-  max-height: calc(100vh - 57px - 41px);
-}
+.main-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 600; }
+.tab-content { flex: 1; overflow-y: auto; padding: 16px 20px; max-height: calc(100vh - 57px - 41px); }
 .tab-pane { display: none; }
 .tab-pane.active { display: block; }
-.overview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-}
+.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
 .stat-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -225,37 +205,15 @@ body {
   padding: 14px 16px;
   overflow-x: auto;
 }
-.matrix-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
+.matrix-title { font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
 .matrix-table { border-collapse: collapse; font-family: var(--font-mono); font-size: 12px; }
-.matrix-table th, .matrix-table td {
-  width: 40px; height: 32px;
-  text-align: center;
-  border: 1px solid var(--color-divider);
-}
-.matrix-table th {
-  background: var(--color-surface-2);
-  color: var(--color-text-muted);
-  font-size: 11px;
-  font-weight: 600;
-}
+.matrix-table th, .matrix-table td { width: 40px; height: 32px; text-align: center; border: 1px solid var(--color-divider); }
+.matrix-table th { background: var(--color-surface-2); color: var(--color-text-muted); font-size: 11px; font-weight: 600; }
 .matrix-table td.inf { color: var(--color-text-faint); }
 .matrix-table td.zero { color: var(--color-primary); font-weight: 600; }
 .matrix-table td.highlight { background: #fff8e8; color: var(--color-accent); font-weight: 600; }
 .matrix-table td.path-cell { background: #e8f8f5; color: var(--color-primary); font-weight: 600; }
-.result-section {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  margin-bottom: 12px;
-  overflow: hidden;
-}
+.result-section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); margin-bottom: 12px; overflow: hidden; }
 .result-header {
   padding: 10px 14px;
   background: var(--color-surface-2);
@@ -266,34 +224,14 @@ body {
   gap: 8px;
 }
 .result-title { font-size: 13px; font-weight: 600; color: var(--color-text); }
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 600;
-}
+.badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; }
 .badge-primary { background: var(--color-primary-bg); color: var(--color-primary); }
 .badge-accent { background: var(--color-accent-bg); color: var(--color-accent); }
 .badge-success { background: var(--color-success-bg); color: var(--color-success); }
 .result-body { padding: 12px 14px; }
 .dist-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.dist-table th {
-  text-align: left;
-  padding: 6px 10px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 1px solid var(--color-divider);
-}
-.dist-table td {
-  padding: 7px 10px;
-  border-bottom: 1px solid var(--color-divider);
-  font-variant-numeric: tabular-nums;
-}
+.dist-table th { text-align: left; padding: 6px 10px; font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--color-divider); }
+.dist-table td { padding: 7px 10px; border-bottom: 1px solid var(--color-divider); font-variant-numeric: tabular-nums; }
 .dist-table tr:last-child td { border-bottom: none; }
 .dist-table tr:hover td { background: var(--color-bg); }
 .dist-table .path-text { font-family: var(--font-mono); font-size: 12px; color: var(--color-primary); }
@@ -317,21 +255,12 @@ body {
 .trace-line.update { color: #f7c948; }
 .trace-line.sep { color: #484f58; }
 .conn-table { border-collapse: collapse; font-family: var(--font-mono); font-size: 12px; width: 100%; }
-.conn-table th, .conn-table td {
-  text-align: center;
-  padding: 5px 10px;
-  border: 1px solid var(--color-divider);
-}
+.conn-table th, .conn-table td { text-align: center; padding: 5px 10px; border: 1px solid var(--color-divider); }
 .conn-table th { background: var(--color-surface-2); color: var(--color-text-muted); font-size: 11px; font-weight: 600; }
 .conn-table td.highlight { background: var(--color-primary-bg); color: var(--color-primary); font-weight: 600; }
 .bool-matrix td.one { background: #e8f8f5; color: var(--color-primary); font-weight: 600; }
 .bool-matrix td.zero-cell { color: var(--color-text-faint); }
-.sub-tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--color-divider);
-}
+.sub-tabs { display: flex; gap: 4px; margin-bottom: 12px; border-bottom: 1px solid var(--color-divider); }
 .sub-tab {
   padding: 6px 12px;
   font-size: 12px;
@@ -375,27 +304,11 @@ body {
 .step-btn.play-btn:hover { background: var(--color-primary-hover); }
 .speed-label { font-size: 12px; color: var(--color-text-muted); }
 .speed-range { width: 70px; cursor: pointer; accent-color: var(--color-primary); }
-.placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 48px 24px;
-  text-align: center;
-  color: var(--color-text-muted);
-}
+.placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 48px 24px; text-align: center; color: var(--color-text-muted); }
 .placeholder-icon { font-size: 32px; opacity: 0.4; }
 .placeholder-text { font-size: 14px; font-weight: 500; }
 .placeholder-hint { font-size: 12px; color: var(--color-text-faint); }
-.graph-canvas-wrap {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 12px;
-  margin-bottom: 12px;
-  text-align: center;
-}
+.graph-canvas-wrap { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 12px; margin-bottom: 12px; text-align: center; }
 #graphCanvas { border-radius: var(--radius-md); max-width: 100%; }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -417,16 +330,7 @@ body {
   margin-bottom: 10px;
 }
 .src-input-wrap label { font-size: 12px; color: var(--color-accent); font-weight: 500; white-space: nowrap; }
-.src-input-wrap input {
-  width: 60px;
-  padding: 4px 8px;
-  border: 1px solid #f5d89e;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  color: var(--color-text);
-  background: #fff;
-  outline: none;
-}
+.src-input-wrap input { width: 60px; padding: 4px 8px; border: 1px solid #f5d89e; border-radius: var(--radius-sm); font-size: 13px; color: var(--color-text); background: #fff; outline: none; }
 .src-input-wrap input:focus { border-color: var(--color-accent); }
 </style>
 </head>
@@ -446,7 +350,7 @@ body {
   </svg>
   <div>
     <div class="app-title">Shortest Path Visualizer</div>
-    <div class="app-subtitle">Dijkstra · Floyd-Warshall · Transitive Closure</div>
+    <div class="app-subtitle">Dijkstra &middot; Floyd-Warshall &middot; Transitive Closure</div>
   </div>
 </header>
 <div class="app-body">
@@ -456,7 +360,7 @@ body {
       <div class="form-group">
         <label class="form-label">n &nbsp;<span style="color:var(--color-text-faint);font-weight:400">Vertex count</span></label>
         <input class="form-input" id="inp-n" type="number" min="2" max="20" value="6">
-        <span class="form-hint">2 – 20 vertices</span>
+        <span class="form-hint">2 - 20 vertices</span>
       </div>
       <div class="form-group">
         <label class="form-label">range &nbsp;<span style="color:var(--color-text-faint);font-weight:400">rand upper bound</span></label>
@@ -505,7 +409,6 @@ body {
       <button class="main-tab" id="tab-btn-closure" onclick="switchTab('closure')">3. Transitive Closure</button>
     </nav>
     <div class="tab-content">
-      <!-- OVERVIEW -->
       <div class="tab-pane active" id="pane-overview">
         <div id="overview-placeholder" class="placeholder">
           <div class="placeholder-icon">&#11041;</div>
@@ -528,7 +431,6 @@ body {
           </div>
         </div>
       </div>
-      <!-- DIJKSTRA -->
       <div class="tab-pane" id="pane-dijkstra">
         <div id="dijkstra-placeholder" class="placeholder">
           <div class="placeholder-icon">&#128269;</div>
@@ -608,7 +510,6 @@ body {
           </div>
         </div>
       </div>
-      <!-- FLOYD -->
       <div class="tab-pane" id="pane-floyd">
         <div id="floyd-placeholder" class="placeholder">
           <div class="placeholder-icon">&#128208;</div>
@@ -680,7 +581,6 @@ body {
           </div>
         </div>
       </div>
-      <!-- TRANSITIVE CLOSURE -->
       <div class="tab-pane" id="pane-closure">
         <div id="closure-placeholder" class="placeholder">
           <div class="placeholder-icon">&#128376;</div>
@@ -731,6 +631,7 @@ body {
   </main>
 </div>
 <script>
+'use strict';
 let G=null,N=0,LARGE=10000;
 let dijD=[],dijFrom=[],dijSteps=[],dijCurStep=-1,dijAutoTimer=null;
 let fwA=[],fwPath=[],fwConn=[],fwSteps=[],fwCurStep=-1,fwAutoTimer=null;
@@ -741,7 +642,7 @@ function fmtDist(v){return inf(v)?'inf':v;}
 
 function buildPath_SSAD(src,v,from){
   if(v===src)return String(src);
-  if(from[v]===v)return '?';
+  if(from[v]===v||from[v]===src&&v===src)return String(src);
   return buildPath_SSAD(src,from[v],from)+' -> '+v;
 }
 function collectMid(i,j,path,mid){
@@ -832,7 +733,6 @@ function drawGraphCanvas(){
   ctx.clearRect(0,0,W,H);
   const R=Math.min(W,H)*0.38,cx=W/2,cy=H/2,pos=[];
   for(let i=0;i<N;i++){const a=(2*Math.PI*i/N)-Math.PI/2;pos.push({x:cx+R*Math.cos(a),y:cy+R*Math.sin(a)});}
-  ctx.font='10px Inter';
   for(let i=0;i<N;i++)for(let j=0;j<N;j++)if(i!==j&&!inf(G[i][j]))drawArrow(ctx,pos[i].x,pos[i].y,pos[j].x,pos[j].y,'#c0bdb8',G[i][j]);
   for(let i=0;i<N;i++){ctx.beginPath();ctx.arc(pos[i].x,pos[i].y,14,0,2*Math.PI);ctx.fillStyle='#e8f4f5';ctx.fill();ctx.strokeStyle='#01696f';ctx.lineWidth=1.8;ctx.stroke();ctx.fillStyle='#01696f';ctx.font='bold 12px Inter';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(i,pos[i].x,pos[i].y);}
 }
@@ -864,8 +764,8 @@ function runDijkstra(){
   switchTab('dijkstra');
 }
 function dijkstraAlgo(src,verbose){
-  const D=new Array(N),from=new Array(N).fill(src),found=new Array(N).fill(false);
-  for(let v=0;v<N;v++)D[v]=G[src][v];
+  const D=new Array(N),from=new Array(N),found=new Array(N).fill(false);
+  for(let v=0;v<N;v++){D[v]=G[src][v];from[v]=src;}
   found[src]=true;D[src]=0;
   const steps=[];
   if(verbose)steps.push({type:'init',D:[...D],from:[...from],found:[...found]});
@@ -899,7 +799,7 @@ function renderDijConn(){
   let h='<table class="conn-table"><thead><tr><th>index</th>';
   for(let v=0;v<N;v++)h+='<th>'+v+'</th>';
   h+='</tr></thead><tbody><tr><th>from</th>';
-  const src=parseInt(document.getElementById('dijkstra-src').value||0);
+  const src=parseInt(document.getElementById('dijkstra-src').value||'0');
   for(let v=0;v<N;v++){const isChanged=dijFrom[v]!==src;h+='<td'+(isChanged?' class="highlight"':'')+'>'+dijFrom[v]+'</td>';}
   h+='</tr></tbody></table>';
   document.getElementById('dij-conn-wrap').innerHTML=h;
