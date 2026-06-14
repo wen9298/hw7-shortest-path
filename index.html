@@ -869,7 +869,7 @@ function renderFwConn(){
   let h='<table class="conn-table"><thead><tr><th>i\\j</th>';
   for(let j=0;j<N;j++)h+='<th>'+j+'</th>';
   h+='</tr></thead><tbody>';
-  for(let i=0;i<N;i++){h+='<tr><th>'+i+'</th>';for(let j=0;j<N;j++){if(i===j){h+='<td>-</td>';continue;}const v=fwConn[i][j];h+='<td'+(v!==-1?' class="highlight"':'')+'>'+（v===-1?'X':v)+'</td>';}h+='</tr>';}
+  for(let i=0;i<N;i++){h+='<tr><th>'+i+'</th>';for(let j=0;j<N;j++){if(i===j){h+='<td>-</td>';continue;}const v=fwConn[i][j];h+='<td'+(v!==-1?' class="highlight"':'')+'>\'+(v===-1?\'X\':v)+\'</td>';}h+='</tr>';}
   h+='</tbody></table>';
   document.getElementById('fw-conn-wrap').innerHTML=h;
 }
