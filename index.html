@@ -640,11 +640,23 @@ let tcMatrix=[],tcSteps=[],tcCurStep=-1,tcAutoTimer=null;
 function inf(v){return v>=LARGE;}
 function fmtDist(v){return inf(v)?'inf':v;}
 
+/* FIX: buildPath_SSAD -- iterative with visited-set to prevent infinite loop */
 function buildPath_SSAD(src,v,from){
   if(v===src)return String(src);
-  if(from[v]===v||from[v]===src&&v===src)return String(src);
-  return buildPath_SSAD(src,from[v],from)+' -> '+v;
+  if(inf(dijD[v]))return null;
+  const visited=new Set();
+  const parts=[];
+  let cur=v;
+  while(cur!==src){
+    if(visited.has(cur)||from[cur]===undefined||from[cur]===cur)return null;
+    visited.add(cur);
+    parts.unshift(cur);
+    cur=from[cur];
+  }
+  parts.unshift(src);
+  return parts.join(' -> ');
 }
+
 function collectMid(i,j,path,mid){
   if(path[i][j]===-1)return;
   const k=path[i][j];
@@ -792,7 +804,10 @@ function renderDijResult(src){
 function renderDijPaths(src){
   const tbody=document.getElementById('dij-paths-tbody');
   let html='';
-  for(let v=0;v<N;v++){const path=inf(dijD[v])?null:buildPath_SSAD(src,v,dijFrom);html+='<tr><td>'+src+' -> '+v+'</td><td>'+(path?'<span class="path-text">'+path+'</span>':'<span class="no-path">(not reachable)</span>')+'</td><td>'+(inf(dijD[v])?'<span style="color:var(--color-text-faint)">inf</span>':dijD[v])+'</td></tr>';}
+  for(let v=0;v<N;v++){
+    const path=inf(dijD[v])?null:buildPath_SSAD(src,v,dijFrom);
+    html+='<tr><td>'+src+' -> '+v+'</td><td>'+(path?'<span class="path-text">'+path+'</span>':'<span class="no-path">(not reachable)</span>')+'</td><td>'+(inf(dijD[v])?'<span style="color:var(--color-text-faint)">inf</span>':dijD[v])+'</td></tr>';
+  }
   tbody.innerHTML=html;
 }
 function renderDijConn(){
